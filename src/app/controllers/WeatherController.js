@@ -44,6 +44,7 @@ class WeatherController {
       const timestamp = verifyTimeZone(dt_txt);
       const day = dateToDay(timestamp);
       const hour = getHours(timestamp) + 3;
+
       if (!compareDateWithToday(timestamp)) {
         if (
           validateCondition(
