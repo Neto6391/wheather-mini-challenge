@@ -11,11 +11,9 @@ _Não vai dar praia nos seguintes dias: Segunda, Quarta e Sexta._
 
 # Intruções de Execução
 
-1- renomear o arquivo '.env.example' para '.env'.
+1- instalar as dependências com o 'yarn install'.
 <br>
-2- instalar as dependências com o 'yarn install'.
-<br>
-3- após instalar, executar o projeto com 'yarn run dev'.
+2- após instalar, executar o projeto com 'yarn run dev'.
 
 # Link para visualizar o Json da API
 
