@@ -16,7 +16,7 @@ export default {
     return matchDay ? `, ${day}` : day;
   },
 
-  compareDateWithToday: (date) => {
+  isToday: (date) => {
     const today = Number(format(new Date(), 'd'));
     const dataDate = Number(format(date, 'd'));
     return today === dataDate;

@@ -10,7 +10,7 @@ class WeatherController {
       verifyTimeZone,
       dateToDay,
       isMatchDayInWeek,
-      compareDateWithToday,
+      isToday,
       transformObjArrayTimestamp,
     } = utils;
     const { link_api, lat, lon, key } = weatherConfig;
@@ -45,7 +45,7 @@ class WeatherController {
         hour: getHours(timestamp) + 3,
       };
 
-      if (!compareDateWithToday(timestamp)) {
+      if (!isToday(timestamp)) {
         days[day] = transformObjArrayTimestamp(days, day, {
           timestamp,
           hour,
