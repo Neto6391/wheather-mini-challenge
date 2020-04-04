@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import HomeController from '../app/controllers/HomeController';
+import WeatherController from '../app/controllers/WeatherController';
 
 const routes = new Router();
 
-routes.get('/', HomeController.index);
+routes.get('/', WeatherController.index);
 
 export default routes;
