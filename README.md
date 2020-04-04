@@ -16,3 +16,7 @@ _Não vai dar praia nos seguintes dias: Segunda, Quarta e Sexta._
 2- instalar as dependências com o 'yarn install'.
 <br>
 3- após instalar, executar o projeto com 'yarn run dev'.
+
+# Link para visualizar o Json da API
+
+http://localhost:8000/
