@@ -8,3 +8,11 @@ _Não vai dar praia nos seguintes dias:..._
 
 Ou seja, se nos próximos 5 dias a humidade relativa do ar estiver acima de 70% na Segunda, na Quarta e na Sexta, você deve exibir a mensagem:
 _Não vai dar praia nos seguintes dias: Segunda, Quarta e Sexta._
+
+# Intruções de Execução
+
+1- renomear o arquivo '.env.example' para '.env'.
+<br>
+2- instalar as dependências com o 'yarn install'.
+<br>
+3- após instalar, executar o projeto com 'yarn run dev'.
