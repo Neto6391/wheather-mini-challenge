@@ -21,16 +21,9 @@ export default {
     const dataDate = Number(format(date, 'd'));
     return today === dataDate;
   },
-  validateCondition: (
-    day1,
-    isEqual = false,
-    day2,
-    included = false,
-    hour,
-    humidity
-  ) => {
-    return isEqual
-      ? day1 === day2 && included && hour <= 18 && humidity > 70
-      : day1 !== day2 && hour <= 18 && humidity > 70;
+  transformObjArrayTimestamp: (array, value, ob) => {
+    return array[value] && Array.isArray(array[value])
+      ? array[value].concat(ob)
+      : [].concat(ob);
   },
 };

@@ -11,17 +11,16 @@ class WeatherController {
       dateToDay,
       isMatchDayInWeek,
       compareDateWithToday,
-      validateCondition,
+      transformObjArrayTimestamp,
     } = utils;
     const { link_api, lat, lon, key } = weatherConfig;
 
-    const request = await axios.get(
+    const requestOpenWeatherApi = await axios.get(
       `${link_api}lat=${lat}&lon=${lon}&appid=${key}`
     );
 
-    const { data } = request;
-    const { list } = data;
-    list.shift();
+    const { data } = requestOpenWeatherApi;
+    const { list: listWeatherDays } = data;
 
     const daysInWeek = [
       'domingo',
@@ -34,44 +33,33 @@ class WeatherController {
     ];
 
     let message = 'Não vai dar ir a praia nos seguintes dias: ';
-    const dayLoop = dateToDay(verifyTimeZone(list[0].dt_txt));
-    const dayIncludeInMessage = { day: dayLoop, included: false };
+    const days = {};
 
-    list.forEach((weather) => {
-      const { dt_txt, main } = weather;
+    listWeatherDays.forEach((weather) => {
+      const { dt_txt: dateString, main } = weather;
+      const timestamp = verifyTimeZone(dateString);
       const { humidity } = main;
 
-      const timestamp = verifyTimeZone(dt_txt);
-      const day = dateToDay(timestamp);
-      const hour = getHours(timestamp) + 3;
+      const { day, hour } = {
+        day: dateToDay(timestamp),
+        hour: getHours(timestamp) + 3,
+      };
 
       if (!compareDateWithToday(timestamp)) {
-        if (
-          validateCondition(
-            dayIncludeInMessage.day,
-            true,
-            day,
-            !dayIncludeInMessage.included,
-            hour,
-            humidity
-          )
-        ) {
-          message += isMatchDayInWeek(daysInWeek, message, day);
-          dayIncludeInMessage.included = true;
-        } else if (
-          validateCondition(
-            dayIncludeInMessage.day,
-            false,
-            day,
-            null,
-            hour,
-            humidity
-          )
-        ) {
-          message += isMatchDayInWeek(daysInWeek, message, day);
-          dayIncludeInMessage.day = day;
-          dayIncludeInMessage.included = true;
-        }
+        days[day] = transformObjArrayTimestamp(days, day, {
+          timestamp,
+          hour,
+          humidity,
+        });
+      }
+    });
+    Object.keys(days).forEach((day) => {
+      const itemDays = days[day];
+      const matchDayNoGoBeach = itemDays.some(
+        (item) => item.hour >= 6 && item.hour <= 18 && item.humidity > 70
+      );
+      if (matchDayNoGoBeach) {
+        message += isMatchDayInWeek(daysInWeek, message, day);
       }
     });
 
